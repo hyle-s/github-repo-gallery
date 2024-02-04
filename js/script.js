@@ -17,7 +17,6 @@ const gitUserInfo = async function () {
 gitUserInfo();
 
 const displayUserInfo = function (data) {
-  //Funky div action
   const div = document.createElement("div");
   div.classList.add("user-info");
   div.innerHTML = `
@@ -39,7 +38,6 @@ const displayUserInfo = function (data) {
 const gitRepos = async function () {
   const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)
   const repoData = await fetchRepos.json();
-  console.log(repoData);
   displayRepos(repoData);
 };
 
@@ -53,7 +51,6 @@ const displayRepos = function (repos) {
   }
 };
 
-//Click repo action
 repoList.addEventListener("click", function (e) {
   if (e.target.matches("h3")) {
     const repoName = e.target.innerText;
@@ -65,19 +62,14 @@ repoList.addEventListener("click", function (e) {
 const getRepoInfo = async function (repoName) {
   const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoInfo = await fetchInfo.json();
-  console.log(repoInfo);
 
-  // Grab languages
   const fetchLanguages = await fetch(repoInfo.languages_url);
   const languageData = await fetchLanguages.json();
-  console.log(languageData);
 
-  // Make language array
   const languages = [];
   for (const language in languageData) {
     languages.push(language);
   }
-  //console.log(languages);
 
   displayRepoInfo(repoInfo, languages);
 };
@@ -109,7 +101,6 @@ viewReposButton.addEventListener("click", function () {
 
 filterInput.addEventListener("input", function (e) {
   const searchText = e.target.value;
-  //console.log(searchText);
   const repos = document.querySelectorAll(".repo");
   const searchLowerText = searchText.toLowerCase();
 
